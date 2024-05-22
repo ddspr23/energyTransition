@@ -1,0 +1,545 @@
+:root {
+    --card-color: #0a0c20;
+    /*--box-shadow: #0a0c20 0px 2px 8px 0px;*/
+    --animation: wiggle 200ms infinite linear forwards;
+    --shake: shake 120ms infinite linear forwards;
+    --global-color: #fff;
+    --blur-value: blur(0);
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(1deg);
+    }
+
+    40% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(-1deg);
+    }
+}
+
+@keyframes shake {
+    20% {
+        transform: translateX(-5px) translate(-50%, 0%);
+    }
+
+    50% {
+        transform: translateX(-5px) translate(-50%, 0%);
+    }
+
+    70% {
+        transform: translateX(-5px) translate(-50%, 0%);
+    }
+}
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica', sans-serif;
+    box-shadow: unset;
+    transition: color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    transition: filter 0.2s ease-in-out;
+}
+
+.card:not(.focusable) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    transition: 0.3s ease-in-out;
+    width: 30%;
+    height: 40%;
+}
+
+.focusable {
+    filter: var(--blur-value);
+}
+
+.palette {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    font-size: 1.1rem;
+}
+
+.color {
+    color: var(--global-color) !important;
+}
+
+.colorable {
+    background-color: var(--card-color) !important;
+    border-radius: 10px !important;
+    box-shadow: none;
+    position: relative;
+}
+
+html, body {
+    background-color: #060715;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main {
+    padding: 0em 3em;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 3px;
+    background-color: #282939;
+    color: #fff;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    box-shadow: var(--box-shadow);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+header {
+    height: 6vh;
+    margin: 2em 0;
+    filter: var(--blur-value);
+}
+
+nav, ul {
+    width: 100%;
+    height: 100%;
+    list-style-type: none;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    gap: 1em;
+}
+
+.banner a {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.statistics {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    gap: 6px;
+    height: 75vh;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.left_stat, .right_stat {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.left_stat {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.right_stat {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: space-between;
+    min-height: min-content;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.right_stat .card {
+    width: 50%;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    flex-shrink: 1;
+}
+
+.card {
+    position: relative;
+    float: left;
+    background-color: #ffcf82;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1em 3em 3em 3em;
+    flex: 1 1 0px;
+    flex-shrink: 2;
+    user-select: none;
+    border-radius: 10px;
+}
+
+.closebtn {
+    font-size: 1.1rem;
+}
+
+.colorable button {
+    position: absolute;
+    right: 1.1em;
+    top: 1.2em;
+    background-color: transparent !important;
+    display: inline-flex;
+    flex-grow: 1;
+    padding: 0;
+    z-index: 999;
+}
+
+.card svg:hover {
+    cursor: pointer;
+}
+
+.chartheader {
+    position: absolute;
+    left: 1.5em;
+    top: 1.2em;
+}
+
+.card input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--global-color);
+}
+
+.card input:focus {
+    border-bottom: 1px solid var(--global-color);
+}
+
+.solar_stat {
+    width: 100%;
+    height: 100%;
+    background-color: var(--card-color);
+    box-shadow: var(--box-shadow);
+    padding: 1em;
+    position: relative;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    filter: var(--blur-value);
+}
+
+.battery_stat, .charge_stat, .sources {
+    width: 100%;
+    background-color: var(--card-color);
+    box-shadow: var(--box-shadow);
+    padding: 1em;
+    flex-grow: 2;
+}
+
+.sources {
+    background-color: transparent !important;
+    padding: 0 !important;
+    display: flex;
+    flex-grow: 1;
+}
+
+.chartValue {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 40%) scale(0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.9rem;
+}
+
+.stat_container {
+    width: 100%;
+    height: 76%;
+}
+
+.battery_stat_container {
+    display: flex;
+    overflow-y: scroll;
+    flex: 1 1 auto;
+    gap: 6px;
+    flex-direction: column;
+    height: 0;
+    border-radius: 10px;
+}
+
+.stats {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    flex: 1.5;
+}
+
+.sources {
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #282939;
+    border-radius: 100px;
+}
+
+.themebtn {
+    width: 4em;
+    height: 1.9em;
+    background-color: #282939;
+    border-radius: 20px;
+    position: relative;
+    transition: 0.1s ease-in-out;
+    box-shadow: var(--box-shadow);
+    margin-right: 6px;
+}
+
+/* // TODO Change theme button color stop beige when light n blue when dark */
+
+.icon_container {
+    height: 100%;
+    width: 1.9em;
+    background-color: #2b5498;
+    border-radius: 50%;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    transition: all 0.4s ease-in-out !important;
+    color: #fff !important;
+}
+
+.icon_container svg {
+    transition: 0.3s ease-in-out;
+}
+
+.icon_container:hover, .themebtn:hover {
+    cursor: pointer;
+}
+
+.graphs {
+    display: flex;
+    gap: 6px;
+}
+
+header button {
+    display: flex;
+    gap: 7px;
+}
+
+.pencil, .sharebtn {
+    transform: scale(0.9);
+}
+
+.more {
+    padding: 0.9em 1.4em;
+}
+
+.bolt {
+    margin-right: 10px;
+    color: #fdeb65;
+}
+
+.savebtn {
+    width: 8em;
+    align-self: end;
+}
+
+.save {
+    margin-right: 7px;
+    transform: scale(0.9);
+}
+
+#notification {
+    padding: 1.2em 1.6em;
+    border-radius: 6px;
+    background-color: violet;
+    position: absolute;
+    left: 50%;
+    top: -100%;
+    transform: translate(-50%, 0%);
+    z-index: 9999;
+    background-color: var(--card-color);
+    display: flex;
+    gap: 0.7em;
+    font-weight: 600;
+    color: var(--global-color);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    transition: 0.3s ease-in-out;
+}
+
+.info {
+    font-size: 0.9rem;
+}
+
+.nclose {
+    margin-left: 4em;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.filter {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    color: var(--global-color);
+}
+
+.wrapper {
+    width: 100%;
+    padding: 0.5em 1em;
+    background-color: #282937;
+    box-shadow: rgba(35,172,102, 0.25) 170px 0px 80px -50px inset;
+    border-left: 8px solid #23ac66;
+    color: #fff;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+    .content span, .content small {
+        font-weight: bold;
+    }
+
+.content span {
+    font-size: 0.9rem;
+}
+
+small {
+    opacity: 0.6;
+}
+
+.scard {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--card-color);
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+    gap: 1em;
+}
+
+.rpt {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    top: auto !important;
+}
+
+.container {
+    width: 320px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    opacity: 0;
+    padding: 2em;
+    z-index: 999;
+    border-radius: 15px;
+    pointer-events: none;
+    background-color: var(--card-color);
+    transform: translate(-50%, -50%) scale(1.2);
+    color: var(--global-color);
+    transition: top 0s 0.2s ease-in-out, left 0s 0s ease-in-out, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.container.show {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    pointer-events: auto;
+    transition: top 0s 0s ease-in-out, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.container svg {
+    /*position: absolute;
+    right: 1em;
+    top: 1em;*/
+    font-size: 1.2rem;
+}
+
+.container svg:hover {
+    cursor: pointer;
+}
+
+.container > div:first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    flex-grow: 1;
+    justify-content: end;
+    width: 100%;
+}
+
+.container form > small {
+    margin-top: 1em;
+}
+
+.container input {
+    padding: 0.7em;
+}
+
+.container a {
+    font-size: 0.8rem;
+    margin-bottom: 1em;
+    text-decoration: underline;
+    color: var(--global-color);
+}
+
+/* make the notification bar 'stubborn' when clicking on stuff that overrules you shake the bar */
