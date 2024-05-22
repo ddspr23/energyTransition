@@ -84,7 +84,9 @@ namespace energyTransition.Server.Controllers
 
             var setting = _context.Settings.Add(new Settings
             {
-                displayLine = dto.displayLine,
+                line1 = false,
+                line2 = false,
+                line3 = false,
                 cardOrder = ""
             });
 
@@ -194,7 +196,9 @@ namespace energyTransition.Server.Controllers
                 var s = _context.Settings.Find(user.SettingFK);
                 if(s != null)
                 {
-                    s.displayLine = dto.displayLine;
+                    s.line1 = dto.line1;
+                    s.line2 = dto.line2;
+                    s.line3 = dto.line3;
                     s.cardOrder = dto.order;
                 }
             } else
@@ -215,7 +219,9 @@ namespace energyTransition.Server.Controllers
                 var s = _context.Settings.Find(user.SettingFK);
                 if (s != null)
                 {
-                    s.displayLine = dto.displayLine;
+                    s.line1 = dto.line1;
+                    s.line2 = dto.line2;
+                    s.line3 = dto.line3;
                     s.cardOrder = dto.order;
                 }
             }
@@ -268,7 +274,9 @@ namespace energyTransition.Server.Controllers
                 ids.Add(i.cardId);
             }
 
-            setting.displayLine = currs.displayLine;
+            setting.line1 = currs.line1;
+            setting.line2 = currs.line2;
+            setting.line3 = currs.line3;
             setting.order = currs.cardOrder;
             setting.Cards = _context.Card.Where(c => ids.Contains(c.Id)).ToList();
 

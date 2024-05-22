@@ -11,7 +11,7 @@ using energyTransition.Server;
 namespace energyTransition.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240521171803_tables")]
+    [Migration("20240522094103_tables")]
     partial class tables
     {
         /// <inheritdoc />
@@ -79,7 +79,13 @@ namespace energyTransition.Server.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("displayLine")
+                    b.Property<bool>("line1")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("line2")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("line3")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("SettingId");

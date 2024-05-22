@@ -181,7 +181,7 @@ export default function Dashboard() {
                 console.log(data);
                 let boxes = setItems(data['order'], data.cards);
                 console.log(boxes);
-                setDisplayLine(data['displayLine']);
+                setLines({ line1: data['line1'], line2: data['line2'], line3: data['line3'] });
                 setBoxes(boxes);
             })
         }
@@ -194,7 +194,9 @@ export default function Dashboard() {
 
     useEffect(() => {
         const ls = JSON.parse(localStorage.getItem('chartvalues'));
-        ls[2].isLine = displayLine;
+        ls[2].line1 = lines.line1;
+        ls[2].line2 = lines.line2;
+        ls[2].line3 = lines.line3;
 
         localStorage.setItem('chartvalues', JSON.stringify(ls));
     }, [displayLine])
@@ -213,7 +215,26 @@ export default function Dashboard() {
             });
         })
 
-        function setCardState() {
+        function setCardState(lns = null) {
+            var obj;
+            if (lns === null) {
+                obj = {
+                    line1: lines.line1,
+                    line2: lines.line2,
+                    line3: lines.line3,
+                    "cards": arr,
+                    "order": order
+                }
+            } else {
+                obj = {
+                    line1: lns.line1,
+                    line2: lns.line2,
+                    line3: lns.line3,
+                    "cards": arr,
+                    "order": order
+                }
+            }
+          
             fetch('api/state', {
                 method: 'POST',
                 headers: {
@@ -221,11 +242,7 @@ export default function Dashboard() {
                     'Accept': '*/*',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({
-                    displayLine: JSON.parse(localStorage.getItem('chartvalues'))[2].isLine,
-                    "cards": arr,
-                    "order": order
-                })
+                body: JSON.stringify(obj)
             }).then(response => {
                 if (response.status !== 200) {
                     response.json().then(d => overruled(d['message']));
@@ -356,6 +373,7 @@ export default function Dashboard() {
         document.documentElement.style.setProperty('--blur-value', '');
         e.currentTarget.parentNode.style.filter = 'var(--blur-value)';
 
+        doSetCardState({ line1: lines.line1, line2: lines.line2, line3: lines.line3 });
         setFocused(false);
     }
 
@@ -398,23 +416,18 @@ export default function Dashboard() {
 
     const changeLine = (e) => {
         //setDisplayLine(!displayLine);
+        const ls = JSON.parse(localStorage.getItem('chartvalues'));
+
         console.log(e.currentTarget.parentNode.dataset.chartId);
         if (e.currentTarget.parentNode.dataset.chartId === '1') {
             setLines({ line1: !lines.line1, line2: lines.line2, line3: lines.line3 });
-            return;
         } else if (e.currentTarget.parentNode.dataset.chartId === '2') {
             setLines({ line1: lines.line1, line2: !lines.line2, line3: lines.line3 });
-            return;
         } else if (e.currentTarget.parentNode.dataset.chartId === '3') {
             setLines({ line1: lines.line1, line2: lines.line2, line3: !lines.line3 });
-            return;
         }
 
-        const ls = JSON.parse(localStorage.getItem('chartvalues'));
-        ls[2].isLine = !displayLine;
-
-        localStorage.setItem('chartvalues', JSON.stringify(ls));
-        doSetCardState();
+        localStorage.setItem('chartvalues', JSON.stringify(ls))
     }
 
     console.log(cards);

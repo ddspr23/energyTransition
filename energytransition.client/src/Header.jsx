@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faPencil, faShare, faEllipsisVertical, faBolt, faFloppyDisk, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faPencil, faShare, faBars, faBolt, faFloppyDisk, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { globalContext } from './main';
 import { useContext, useState } from 'react';
@@ -87,6 +87,11 @@ export default function Header() {
         window.location.reload();
     }
 
+    const toggleDropdown = (e) => {
+        e.preventDefault();
+        document.querySelector('.dropdown').classList.toggle('on');
+    }
+
     return (
         <header>
             <nav>
@@ -111,8 +116,18 @@ export default function Header() {
                         <li>
                             {headerState.shouldEdit ? <button className='savebtn' onClick={handleEdit}><FontAwesomeIcon className='save' icon={faFloppyDisk} />Opslaan</button> : <button id="editbtn" onClick={handleEdit}><FontAwesomeIcon className='pencil' icon={faPencil} />Edit</button>}
                         </li>
-                        <li>
-                            <button className='more'><FontAwesomeIcon className='ellipsis' icon={faEllipsisVertical} /></button>
+                    </div>
+                    <div className='dropdown-menu'>
+                        <li style={{ display: 'inline-block' }}>
+                            <button className='ddmenu' onClick={toggleDropdown}><FontAwesomeIcon className='ellipsis' icon={faBars} /></button>
+                            <div className='dropdown'>
+                                {
+                                    (localStorage.getItem('uname') !== null) ? <button onClick={logout} title='Uitloggen'>{localStorage.getItem('uname')}</button> : <button className='login' onClick={handleLoginClick}><FontAwesomeIcon icon={faUser} />Inloggen</button>
+                                }
+                                <button className="share"><FontAwesomeIcon id="sharebtn" icon={faShare} />Share</button>
+                                {headerState.shouldEdit ? <button className='savebtn' onClick={handleEdit}><FontAwesomeIcon className='save' icon={faFloppyDisk} />Opslaan</button> : <button id="editbtn" onClick={handleEdit}><FontAwesomeIcon className='pencil' icon={faPencil} />Edit</button>}
+                                <button onClick={handleClick} className='theme'>{lightmode ? <FontAwesomeIcon className='themeico' icon={faSun} /> : <FontAwesomeIcon className='themeico' icon={faMoon} />}Theme</button>
+                            </div>
                         </li>
                     </div>
                 </ul>

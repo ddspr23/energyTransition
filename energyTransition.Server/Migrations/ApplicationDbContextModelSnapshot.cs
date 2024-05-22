@@ -76,7 +76,13 @@ namespace energyTransition.Server.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("displayLine")
+                    b.Property<bool>("line1")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("line2")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("line3")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("SettingId");

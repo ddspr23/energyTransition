@@ -95,6 +95,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 .main {
     padding: 0em 3em;
 }
@@ -115,6 +119,7 @@ button {
 
 button:hover {
     opacity: 0.8;
+    cursor: pointer;
 }
 
 header {
@@ -139,6 +144,26 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dropdown {
+    position: absolute;
+    z-index: 99999;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 5px;
+    display: none;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 2em;
+}
+
+.ddmenu {
+    display: none;
 }
 
 .buttons {
@@ -266,6 +291,7 @@ li {
     box-shadow: var(--box-shadow);
     padding: 1em;
     flex-grow: 2;
+    filter: var(--blur-value);
 }
 
 .sources {
@@ -542,4 +568,57 @@ small {
     color: var(--global-color);
 }
 
-/* make the notification bar 'stubborn' when clicking on stuff that overrules you shake the bar */
+@media screen and (max-width: 420px) {
+    .cards {
+        width: 100%;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .buttons {
+        display: none;
+    }
+
+    header {
+        width: 100%;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        padding: 2em;
+    }
+
+    header a {
+        font-size: 1.1rem !important;
+    }
+
+    .statistics {
+        margin-top: 8em;
+    }
+
+    .dropdown {
+        right: 0;
+        display: none;
+    }
+
+    .ddmenu {
+        display: block;
+    }
+
+    .dropdown.on {
+        display: flex;
+    }
+
+    .themebtn {
+        width: 100%;
+    }
+
+    .dropdown button {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 10px;
+    }
+}
